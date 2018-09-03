@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Calculator using Angular</title>
+	<script src="js/angular.min.js"></script>
+</head>
+
+<body ng-app = "myapp">
+	<div  ng-controller = "MyController">
+		 
+		
+		Enter num 1 <input type="text" ng-model="n1"><br/><br/>
+		Enter num 2 <input type="text" ng-model="n2"><br/><br/> 
+
+		<button ng-click="sayhi()"> Submit </button><br/><br/>
+
+		Total <input type="text" ng-model = "total">
+	
+	</div>
+	
+	<script>
+		angular.module("myapp", [])
+		.controller("MyController", function($scope) {
+			
+			$scope.sayhi = function (){
+				$scope.total = parseFloat($scope.n1) + parseFloat($scope.n2);
+				
+			}
+
+		});
+
+
+	</script>
+
+</body>
+</html>

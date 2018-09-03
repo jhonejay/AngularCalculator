@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator using Angular</title>
+  <script src="js/angular.min.js"></script>
+</head>
+
+<body ng-app = "myapp">
+  <div  ng-controller = "MyController">
+  
+  <center> 
+  
+  <!-- INPUT: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+  
+    <span ng-bind="inputs1"></span>
+    <span ng-bind="opera"></span>
+    <span ng-bind="inputs2"></span><br>
+    <span ng-bind="selectOperation"></span><br><br>
+  
+    
+    <button ng-click = "updateOutput('0')">0</button>
+    <button ng-click = "updateOutput('1')">1</button>
+    <button ng-click = "updateOutput('2')">2</button>
+    <button ng-click = "updateOutput('3')">3</button>
+    <button ng-click = "updateOutput('4')">4</button><br/><br/>
+    <button ng-click = "updateOutput('5')">5</button>
+    <button ng-click = "updateOutput('6')">6</button>
+    <button ng-click = "updateOutput('7')">7</button>
+    <button ng-click = "updateOutput('8')">8</button>
+    <button ng-click = "updateOutput('9')">9</button><br/><br/>
+
+    <button ng-click="clear()"> C </button>
+    <button ng-click="plusBtn()"> + </button>
+    <button ng-click="total()"> = </button>
+    <br/><br/><br/>
+  
+    output <input type="text" ng-model = "n1"> <br/><br/>
+    </center>   
+    </div>
+  
+ <script>
+    angular.module("myapp", [])
+    .controller("MyController", function($scope) {
+      
+      // $scope.sayhi = function (){
+      //   $scope.total = parseFloat($scope.n1) + parseFloat($scope.n2);
+        
+      // }
+
+      $scope.n1=""; 
+      $scope.inactive=true;
+      $scope.equal=true;
+      $scope.oper=false;
+      $scope.inputs1Value=false;
+      var input1 = 0;
+      var input2;
+      var totals;
+      
+      $scope.updateOutput = function($num){
+        if (input1==0) {
+          $scope.equal=true;  
+        }
+        if ($scope.oper==true) {
+          $scope.n1="";
+          $scope.oper=false;
+          $scope.equal=false; 
+          $scope.inactive=true;
+        }
+        if ($scope.n1!="") {
+          $scope.n1 = $scope.n1+$num;
+        }
+        else{
+          $scope.inactive=false;
+          $scope.n1 = $num;
+
+        }
+
+      }
+      $scope.plusBtn = function(){
+        //$scope.selectOperation="+";
+        if ($scope.equal==true) {
+          $scope.inputs2="";
+          $scope.opera="+";
+          input1 = parseFloat($scope.n1);
+          $scope.inputs1 = input1;  
+          $scope.oper=true;
+          $scope.inactive=true;
+          $scope.n1=""; 
+        }
+        else{
+          $scope.equal=true;
+          $scope.inputs2="";
+          $scope.opera="+";
+          input1 = input1 + parseFloat($scope.n1);
+          $scope.inputs1 = input1;  
+          $scope.oper=true;
+          $scope.inactive=true;
+          $scope.n1=""; 
+        }
+      }
+
+      $scope.total = function(){
+        input2 = parseFloat($scope.n1);
+        $scope.inputs2 = input2;
+        totals = input1 + input2;
+        $scope.n1 = totals;
+        $scope.oper=true;
+        $scope.equal=true;
+        input1=0;
+        input2=0;
+        
+      }
+
+      $scope.clear = function() {
+        $scope.n1 = " ";
+        $scope.inputs1 = " ";
+        $scope.inputs2 = " ";
+         $scope.opera = " ";
+        $scope.selectOperation = " ";
+         
+      }
+    });
+  </script>
+</body>
+</html>
